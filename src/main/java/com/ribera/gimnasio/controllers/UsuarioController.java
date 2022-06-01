@@ -44,6 +44,7 @@ public class UsuarioController {
 	@Autowired
     private ModelMapper modelMapper;
 	@GetMapping("/monitores/{nombreUsuario}")
+	@PreAuthorize("hasRole('ROLE_EMP')")
 	public Monitor getClienteByNombreUsuario(@PathVariable String nombreUsuario){
 		
 		  return this.convertToDto(usuarioService.getByNombreUsuario(nombreUsuario).get()) ;
@@ -53,6 +54,7 @@ public class UsuarioController {
 	
 	
 	@GetMapping("/monitores")
+	@PreAuthorize("hasRole('ROLE_EMP')")
 	public List<Monitor> getMonitores(){
 		Rol rol = rolService.getByRolNombre(RolNombre.ROLE_EMP).get();
 		  return usuarioService.getByRol(rol).stream().map(this::convertToDto).collect(Collectors.toList());

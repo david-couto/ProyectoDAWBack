@@ -160,7 +160,7 @@ public class ClaseController {
 		Clase claseaux = claseService.getClaseById(id);
 		if(clase.getMonitor() != null) {
 			List<Clase> clasesMonitor = claseService.getClasesByMonitorBetweenDates(new Date(clase.getFechaClase().getTime()), new Time(clase.getHoraInicio().getTime()), clase.getAddSubtractTime(new Time(clase.getHoraInicio().getTime()), actividadService.getActividadById(clase.getActividad()).getDuracion()),usuarioService.getById( clase.getMonitor()));
-			if (!clasesMonitor.isEmpty()) {
+			if (!clasesMonitor.isEmpty() && !(clasesMonitor.size()==1 && clasesMonitor.contains(claseaux) )){
 				return new ResponseEntity<>(new Mensaje("Ya da una clase en esas horas"),HttpStatus.BAD_REQUEST);
 			}
 			claseaux.setMonitor(usuarioService.getById(clase.getMonitor()));
@@ -221,7 +221,7 @@ public class ClaseController {
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_EMP')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')"+"|| (hasRole('ROLE_EMP') && @authenticatedEmpService.isMonitor(#id))")
 	public ResponseEntity<?> delete(@PathVariable Long id) throws NoSuchElementException, ConstraintViolationException, Exception {
 		claseService.delete(id);
 		return new ResponseEntity<>(new Mensaje("Clase eliminada"), HttpStatus.OK);

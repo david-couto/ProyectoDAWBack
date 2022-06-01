@@ -87,7 +87,7 @@ public class ActividadController {
 			return new ResponseEntity<>(new Mensaje("Ya existe una actividad con este nombre "),HttpStatus.BAD_REQUEST);
 		}
 		System.out.println("probando");
-		System.out.println(actividad);
+		
 		actividadService.save(actividad);
 		return new ResponseEntity<>(new Mensaje("Actividad creada"),HttpStatus.CREATED);
 	}

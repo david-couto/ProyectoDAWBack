@@ -7,6 +7,7 @@ public class ActividadDto {
 	private Long id;
 	private String nombre;
 	private int duracion;
+	private String icono;
 	private CategoriaActividad categoria;
 	private DificultadActividad dificultad;
 	private int numMaxAsistentes;
@@ -45,6 +46,12 @@ public class ActividadDto {
 	}
 	public void setNumMaxAsistentes(int numMaxAsistentes) {
 		this.numMaxAsistentes = numMaxAsistentes;
+	}
+	public String getIcono() {
+		return icono;
+	}
+	public void setIcono(String icono) {
+		this.icono = icono;
 	}
 	
 }

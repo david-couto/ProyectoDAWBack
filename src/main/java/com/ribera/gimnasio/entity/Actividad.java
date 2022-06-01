@@ -38,7 +38,8 @@ public class Actividad implements Serializable{
 	
 	@Column(unique = true)
 	private String nombre;
-	
+	@Column(columnDefinition = "LONGTEXT")
+	private String icono;
 	private int duracion;
 	
 	@Enumerated(EnumType.STRING)
@@ -109,6 +110,14 @@ public class Actividad implements Serializable{
 
 	public void setNumMaxAsistentes(int numMaxAsistentes) {
 		this.numMaxAsistentes = numMaxAsistentes;
+	}
+
+	public String getIcono() {
+		return icono;
+	}
+
+	public void setIcono(String icono) {
+		this.icono = icono;
 	}
 	
 	
